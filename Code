@@ -1,0 +1,12 @@
+from scapy.all import sniff
+from scapy.layers.inet import IP
+
+def packet_callback(packet):
+    if IP in packet:
+        ip_layer = packet[IP]
+        print(f"Source IP: {ip_layer.src}")
+        print(f"Destination IP: {ip_layer.dst}")
+        print(f"Protocol: {ip_layer.proto}")
+        print("-" * 50)
+
+sniff(filter="ip", prn=packet_callback, store=0)
